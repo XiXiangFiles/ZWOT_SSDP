@@ -1,15 +1,15 @@
 const Server = require('node-ssdp').Server
-const server = new Server()
-   
- 
-server.addUSN('upnp:rootdevice');
-server.addUSN('urn:schemas-upnp-org:device:MediaServer:1');
-server.addUSN('urn:schemas-upnp-org:service:ContentDirectory:1');
-server.addUSN('urn:schemas-upnp-org:service:ConnectionManager:1');
-server.on('advertise-alive', function (headers) {
-  
-})
-            
-server.on('advertise-bye', function (headers) {
-})
-server.start();
+const uuidv = require('uuid/v1')
+const ip = require('ip')
+const fs = require('fs')
+const server = new Server({ location: `http://${ip.address()}:3000/upnp/device.sxml`, udn: uuidv() })
+
+exports.start = function () {
+  server.addUSN('urn:schemas-upnp-org:service:Transfer:1')
+  server.on('advertise-alive', function (headers) {
+  })
+  server.start()
+}
+exports.getxml = function () {
+  return fs.readFileSync(`./ssdp/upnp/device.sxml`)
+}
