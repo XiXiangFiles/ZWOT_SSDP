@@ -6,6 +6,8 @@ const server = new Server({ location: `http://${ip.address()}:3000/upnp/device.s
 
 exports.start = function () {
   server.addUSN('urn:schemas-upnp-org:service:Transfer:1')
+  server.addUSN('urn:schemas-upnp-org:service:Light:1')
+  server.addUSN('urn:schemas-upnp-org:service:Temperature:1')
   server.on('advertise-alive', function (headers) {
   })
   server.start()
