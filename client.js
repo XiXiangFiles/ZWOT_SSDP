@@ -25,9 +25,9 @@ async function saveLog () {
 }
 let timeup
 client.on('response', function (headers, statusCode, rinfo) {
-  // res(`${headers.LOCATION}`, function (_error, response, body) {
-  //   console.log('body:', body)
-  // })
+   res(`${headers.LOCATION}`, function (_error, response, body) {
+     console.log('body:', body)
+   })
   saveLog()
   client.stop()
   timeup = now()
